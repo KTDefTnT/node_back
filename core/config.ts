@@ -1,0 +1,5 @@
+exports.MONGODB = {
+	uri: `mongodb://127.0.0.1:27017/blogNode`,
+	username: 'DB_username',
+	password: 'DB_password'
+};
