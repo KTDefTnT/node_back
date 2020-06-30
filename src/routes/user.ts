@@ -3,6 +3,11 @@ import { responseClient, md5, MD5_SUFFIX } from '../../core/util';
 const User = require('../models/user');
 
 const register = (req: any, res: any) => {
+  console.log(req.query);
+  // const { username, password } = req.body;
+  // User.findOne({ username }).then((data: any) => {
+  //   console.log('data', data);
+  // })
   //保存到数据库
   // let user = new User({
   //   email: '1395110441@qq.com',
@@ -19,7 +24,7 @@ const register = (req: any, res: any) => {
   // console.log('user', user);
   responseClient(res, 200, 'SUCCESS', '注册成功！', {
     name: '名字啦',
-    password: '123456'
+    password: '1212'
   });
 }
 
