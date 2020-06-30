@@ -9,7 +9,7 @@ import crypto from 'crypto';
 import { mongoose } from '../../core/mongodb'
 const autoIncrement = require('mongoose-auto-increment');
 
-const adminSchema = new mongoose().Schema({
+const adminSchema = new mongoose.Schema({
   //第三方授权登录的 github 的用户 id
   github_id: { type: String, default: '' },
 
