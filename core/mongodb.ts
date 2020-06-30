@@ -15,10 +15,11 @@ const autoIncrement = require('mongoose-auto-increment')
 
 // mongoose Promise
 mongoose.Promise = global.Promise
-console.log('config', config.MONGODB.uri);
+
 const connect = () => {
+  console.log('connecttion');
   // 连接数据库
-	mongoose.connect('mongodb://127.0.0.1:27017/users', {
+	mongoose.connect(config.MongoDB.uri, {
 		useCreateIndex: true,
 		useNewUrlParser: true,
 		promiseLibrary: global.Promise
@@ -31,7 +32,7 @@ const connect = () => {
 
 	// 连接成功
 	mongoose.connection.once('open', () => {
-		consola.ready('数据库连接成功!')
+		consola.ready('数据库连接成功! 自增id初始化')
 	})
 
 	// 自增 ID 初始化
