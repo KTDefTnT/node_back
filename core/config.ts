@@ -3,3 +3,8 @@ exports.MongoDB = {
 	username: 'DB_username',
 	password: 'DB_password'
 };
+
+exports.MsgType = {
+  SUCCESS: 'success',
+  ERROR: 'error'
+}
