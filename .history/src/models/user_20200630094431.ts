@@ -7,7 +7,6 @@
 
 import crypto from 'crypto';
 import { mongoose } from '../../core/mongodb'
-const autoIncrement = require('mongoose-auto-increment');
 
 const adminSchema = new mongoose().Schema({
   //第三方授权登录的 github 的用户 id
@@ -51,14 +50,6 @@ const adminSchema = new mongoose().Schema({
 
   //封面
   img_url: { type: String, default: '' }
-});
-
-// 自增 ID 插件配置 为当前的表创建一个唯一索引 id，初始化为1 以后都增1
-adminSchema.plugin(autoIncrement.plugin, {
-  model: 'User',
-  field: 'id',
-  startAt: 1,
-  incrementBy: 1,
 });
 
 export const User = mongoose.model('User', adminSchema);

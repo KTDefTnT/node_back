@@ -11,7 +11,7 @@ const config = require('./config')
 const autoIncrement = require('mongoose-auto-increment')
 
 // remove DeprecationWarning
-// mongoose.set('useFindAndModify', false)
+mongoose.set('useFindAndModify', false)
 
 // mongoose Promise
 mongoose.Promise = global.Promise

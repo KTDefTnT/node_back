@@ -11,12 +11,12 @@ const config = require('./config')
 const autoIncrement = require('mongoose-auto-increment')
 
 // remove DeprecationWarning
-// mongoose.set('useFindAndModify', false)
+mongoose.set('useFindAndModify', false)
 
 // mongoose Promise
 mongoose.Promise = global.Promise
 console.log('config', config.MONGODB.uri);
-const connect = () => {
+mongoose.connect = () => {
   // 连接数据库
 	mongoose.connect('mongodb://127.0.0.1:27017/users', {
 		useCreateIndex: true,
@@ -42,6 +42,5 @@ const connect = () => {
 }
 
 export {
-  mongoose,
-  connect
+  mongoose
 }

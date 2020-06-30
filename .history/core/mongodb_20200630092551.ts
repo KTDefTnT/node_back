@@ -11,21 +11,24 @@ const config = require('./config')
 const autoIncrement = require('mongoose-auto-increment')
 
 // remove DeprecationWarning
-// mongoose.set('useFindAndModify', false)
+mongoose.set('useFindAndModify', false)
 
 // mongoose Promise
 mongoose.Promise = global.Promise
-console.log('config', config.MONGODB.uri);
-const connect = () => {
+
+// mongoose
+module.exports.mongoose = mongoose
+
+module.exports.connect = () => {
   // 连接数据库
-	mongoose.connect('mongodb://127.0.0.1:27017/users', {
+	mongoose.connect(config.MONGODB.uri, {
 		useCreateIndex: true,
 		useNewUrlParser: true,
 		promiseLibrary: global.Promise
   })
   
   // 连接错误
-	mongoose.connection.on('error', (error: any) => {
+	mongoose.connection.on('error', error => {
 		consola.warn('数据库连接失败!', error)
 	})
 
@@ -39,9 +42,4 @@ const connect = () => {
 	
 	// 返回实例
 	return mongoose
-}
-
-export {
-  mongoose,
-  connect
 }
