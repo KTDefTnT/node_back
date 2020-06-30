@@ -11,5 +11,5 @@ import app from "./app";
  * Start Express server.
  */
 app.listen(3000, () => {
-    console.log("server start in localhost:3030");
+    console.log("server start in localhost:3000");
 });

@@ -53,6 +53,9 @@ const adminSchema = new mongoose.Schema({
   img_url: { type: String, default: '' }
 });
 
+// 自增 ID 初始化
+autoIncrement.initialize(mongoose.connection);
+
 // 自增 ID 插件配置 为当前的表创建一个唯一索引 id，初始化为1 以后都增1
 adminSchema.plugin(autoIncrement.plugin, {
   model: 'User',
@@ -61,4 +64,4 @@ adminSchema.plugin(autoIncrement.plugin, {
   incrementBy: 1,
 });
 
-export const User = mongoose.model('User', adminSchema);
+module.exports = mongoose.model('User', adminSchema);

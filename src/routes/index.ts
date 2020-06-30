@@ -1,5 +1,5 @@
 import user from './user'
 
-export = (app: any): any => {
-  app.get('/register', user.register)
+module.exports = (app: any): any => {
+  app.post('/register', user.register)
 }

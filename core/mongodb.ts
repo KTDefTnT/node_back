@@ -17,7 +17,6 @@ const autoIncrement = require('mongoose-auto-increment')
 mongoose.Promise = global.Promise
 
 const connect = () => {
-  console.log('connecttion');
   // 连接数据库
 	mongoose.connect(config.MongoDB.uri, {
 		useCreateIndex: true,
