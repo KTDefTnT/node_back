@@ -2,11 +2,15 @@ const express = require('express');
 const path = require('path');
 import { connect } from '../core/mongodb';
 import route from './routes/index'; //将路由文件引入
+import bodyParser from 'body-parser';
 
 const app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 // 连接数据库
 connect();
 
