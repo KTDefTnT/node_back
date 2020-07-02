@@ -6,5 +6,6 @@ exports.MongoDB = {
 
 exports.MsgType = {
   SUCCESS: 'success',
-  ERROR: 'error'
+  ERROR: 'error',
+  TOLOGIN: 'logout'
 }

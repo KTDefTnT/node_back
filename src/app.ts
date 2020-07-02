@@ -3,6 +3,7 @@ const path = require('path');
 import { connect } from '../core/mongodb';
 import route from './routes/index'; //将路由文件引入
 import bodyParser from 'body-parser';
+import session from 'express-session';
 
 const app = express();
 // view engine setup
@@ -11,6 +12,19 @@ app.set('view engine', 'ejs');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(
+  session({
+    secret: 'node_back',
+    name: 'session_id', //# 在浏览器中生成cookie的名称key，默认是connect.sid
+    resave: true,
+    saveUninitialized: true,
+    cookie: {
+      maxAge: 60* 1000 *30,
+      httpOnly: true
+    }
+  })
+);
+
 // 连接数据库
 connect();
 

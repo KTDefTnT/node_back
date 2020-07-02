@@ -1,10 +1,11 @@
 import { ResponseData } from './../types/index.d';
 import crypto from 'crypto';
 
-function responseClient(res: any, httpCode = 500, type = 'SUCCESS', message = '服务端异常', data = {}) {
+function responseClient(res: any, httpCode = 500, type = 'SUCCESS',show = false, message = '服务端异常', data = {}) {
   let responseData:ResponseData = {
     message,
     type,
+    show,
     data
   };
   res.status(httpCode).json(responseData);
