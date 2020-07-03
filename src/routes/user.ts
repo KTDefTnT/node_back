@@ -64,20 +64,68 @@ const logout = (req: any, res: any) => {
     req.session.userInfo = null; // 删除session
     responseClient(res, 200, MsgType.SUCCESS, true, '注销登录成功！');
   } else {
-    responseClient(res, 200, MsgType.TOLOGIN, false, '您还没登录！');
+    responseClient(res, 200, MsgType.TOLOGIN, false, '您还没登录,或者登录信息已过期，请重新登录！');
   }
 }
 
 const userList = (req: any, res: any) => {
-  // let { pageNo = 1, pageSize = 10 } = req.body;
-  // .skip((pageNo - 1) * pageSize).limit(pageSize)
+  let { pageNo = 1, pageSize = 10, username = '', email = '' } = req.body;
+
+  let responseData = {
+    total: 0,
+    list: []
+  }
+  let conditions: any;
+  const reg = new RegExp(username, 'i'); //不区分大小写
+  // 查询条件
+  if (username && email) {
+    conditions = {
+      username: { $regex: reg },
+      email
+    }
+  } else if (username) {
+    conditions = {
+      username: { $regex: reg }
+    };
+  }  else if (email) {
+    conditions = {
+      email
+    };
+  }
+  
   if (req.session.userInfo) {
-    User.find().then((data: any) => {
-      console.log('data', data);
-      responseClient(res, 200, MsgType.SUCCESS, false, '查询成功', data);
+    User.countDocuments(conditions, (error: Error, total: number) => {
+      if (error) {
+        console.log('userList error', error);
+        responseClient(res, 200, MsgType.ERROR, false, '服务器异常！');
+      } else {
+        responseData.total = total;
+
+        // 待返回的字段
+        let fields = {
+          github_id: 1,
+          username: 1,
+          type: 1,
+          email: 1,
+          id: 1,
+          phone: 1,
+          location: 1,
+          create_time: 1,
+        };
+        let options = {
+          skip: (pageNo - 1) * pageSize,
+          limit: Number(pageSize),
+          sort: { 'create_time': -1 }
+        };
+        User.find(conditions, fields, options).then((data: any) => {
+          responseData.list = data;
+          responseClient(res, 200, MsgType.SUCCESS, false, '查询成功', responseData );
+        });
+      }
     });
+    
   } else {
-    responseClient(res, 200, MsgType.TOLOGIN, false, '您还没登录！');
+    responseClient(res, 200, MsgType.TOLOGIN, false, '您还没登录,或者登录信息已过期，请重新登录！');
   }
 }
 
@@ -92,7 +140,7 @@ const deleteUser = (req: any, res: any) => {
       responseClient(res, 200, MsgType.SUCCESS, true, '删除成功！');
     });
   } else {
-    responseClient(res, 200, MsgType.TOLOGIN, false, '您还没登录！');
+    responseClient(res, 200, MsgType.TOLOGIN, false, '您还没登录,或者登录信息已过期，请重新登录！');
   }
 }
 
